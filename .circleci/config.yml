@@ -1,17 +1,19 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@14
+  docker: circleci/docker@20
+
 jobs:
   install_packages:
-    docker:
-      - image: node
+    executor: node
     steps:
       - checkout
       - run:
           command: |
             npm install
   build_docker:
-    docker:
-      - image: node
+    executor: docker
     steps:
       - checkout
       - run:
