@@ -1,0 +1,14 @@
+language: node_js
+services:
+  - docker
+
+before_install:
+  - docker build . -t my-node-app -f Dockerfile
+script:
+  - echo "testing"
+  - echo "build success"
+deploy:
+  provider: docker
+  on:
+    branches:
+      - master

@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  install_packages:
+    docker:
+      - image: node
+    steps:
+      - checkout
+      - run:
+          command: |
+            npm install
+  build_docker:
+    docker:
+      - image: node
+    steps:
+      - checkout
+      - run:
+          command: |
+            docker build . -t my-node-app -f Dockerfile
+
+workflows:
+  test_pr:
+    jobs:
+      - install_packages
+      - build_docker:
+          requires:
+            - install_packages
+          filters:
+            branches:
+              only: master
