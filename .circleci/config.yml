@@ -22,14 +22,12 @@ workflows:
   test_pr:
     jobs:
       - install_packages:
-          filter:
+          filters:
             branches:
-              - develop
+              only: develop
   build:
     jobs:
       - build_docker:
-          requires:
-            - install_packages
           filters:
             branches:
               only: master
