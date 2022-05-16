@@ -1,36 +1,35 @@
 version: 2.1
-
 orbs:
-  node: circleci/node@4.1
+  node: circleci/node@14
 
 jobs:
-  test:
-    docker:
-      - image: cimg/node:15.1
+  build_and_test:
+    executor: node/default
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: npm
       - run:
-          name: Run tests
-          command: ""
+          name: Run tests ....
+          command: npm run test
+      - run:
+          name: Build app....
+          command: npm run build
+
   deploy:
-    docker:
-      - image: cimg/node:15.1
+    executor: node/default
     steps:
-      - checkout
-      - node/install-packages
-    script:
-      - echo "docker build"
-      - docker build -t my-node-app . -f Dockerfile
-    filters:
-      - only: merge
+      - run:
+          name: deploy only on merge
+          command: docker build . -tag my-app
 
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
-  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample:
+  test_my_app:
     jobs:
-      - test
-      - deploy
+      - build_and_test
+      - deploy:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: main
