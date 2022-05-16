@@ -6,14 +6,8 @@ pipeline {
 				//  changeRequest branch: "master"
 				 expression {
 					 if (env.CHANGE_ID) {
-						 steps {
-                			echo 'Testing..'
-            			}
 						echo "====++++testing++++===="
 					 } else {
-						  steps {
-                			echo 'Testing else..'
-            			}
 						echo "====++++testing else++++===="
 					 }
 				 }
