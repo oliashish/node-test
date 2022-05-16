@@ -4,6 +4,17 @@ pipeline {
         stage('test') {
 			when{
 				 changeRequest branch: "master"
+				 expression {
+					 if (env.CHANGE_ID) {
+						 steps {
+							 echo "testing.."
+						 }
+					 } else {
+						 steps {
+								echo "skipping.."
+						 }
+					 }
+				 }
 			}
             steps {
                 echo 'Testing..'
@@ -16,7 +27,7 @@ pipeline {
 				sh 'npm install'
             }
         }
-		
+
         stage('deploy') {
             steps {
                 echo 'Deploying....'
