@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('test') {
 			when{
-				 changeRequest branch: "develop"
+				 changeRequest branch: "master"
 			}
             steps {
                 echo 'Testing..'
