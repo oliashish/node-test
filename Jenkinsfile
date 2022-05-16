@@ -7,9 +7,11 @@ pipeline {
     }
     stages {
         stage('test') {
+			when{
+				 changeRequest branch: "master"
+			}
             steps {
                 echo 'Testing..'
-				sh 'npm install'
             }
         }
         stage('build') {
