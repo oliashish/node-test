@@ -3,16 +3,18 @@ pipeline {
     stages {
         stage('test') {
 			when{
-				 changeRequest branch: "master"
+				//  changeRequest branch: "master"
 				 expression {
 					 if (env.CHANGE_ID) {
 						 steps {
-							 echo "testing.."
-						 }
+                			echo 'Testing..'
+            			}
+						echo "====++++testing++++===="
 					 } else {
-						 steps {
-								echo "skipping.."
-						 }
+						  steps {
+                			echo 'Testing else..'
+            			}
+						echo "====++++testing else++++===="
 					 }
 				 }
 			}
