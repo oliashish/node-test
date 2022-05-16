@@ -9,12 +9,14 @@ pipeline {
                 echo 'Testing..'
             }
         }
+
         stage('build') {
             steps {
                 echo 'Building..'
 				sh 'npm install'
             }
         }
+		
         stage('deploy') {
             steps {
                 echo 'Deploying....'
