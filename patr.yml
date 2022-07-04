@@ -1,0 +1,10 @@
+kind: pipeline
+type: docker
+name: default
+steps:
+  - name: build
+    image: node
+    commands:
+      - node server.js
+    environment:
+      PORT: "8080"
