@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build . -t my-node-app -f Dockerfile
 script:
-  - echo "testing testing"
+  - echo "testing testing testing"
   - echo "build success"
 deploy:
   provider: docker
